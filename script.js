@@ -43,8 +43,6 @@ let alreadyscanned = false
 // Listen for successful barcode scans
 Quagga.onDetected(function (data) {
 
-
-    alreadyscanned = true
     if (!scanning) {
         return; // If not scanning, ignore detected results
     }
@@ -58,10 +56,11 @@ Quagga.onDetected(function (data) {
     const Id = parseInt(rollNumber)
     const index = binarySearch(StudentID, Id);
 
+    alreadyscanned = true
     if (index === 1 && alreadyscanned) {
         document.getElementById('result').innerHTML = `
          <h3>Already scanned once</h3>
-            <h2>WELCOME <br> TO <br> GALACTIC x NEON</h2>
+        <h2>WELCOME <br> TO <br> GALACTIC x NEON</h2>
         `;
     }
     else if (index === 1) {
