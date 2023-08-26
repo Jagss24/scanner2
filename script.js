@@ -42,7 +42,6 @@ let scanning = true
 let alreadyscanned = false
 // Listen for successful barcode scans
 Quagga.onDetected(function (data) {
-
     if (!scanning) {
         return; // If not scanning, ignore detected results
     }
@@ -56,31 +55,36 @@ Quagga.onDetected(function (data) {
     const Id = parseInt(rollNumber)
     const index = binarySearch(StudentID, Id);
 
-    alreadyscanned = true
-    if (index === 1 && alreadyscanned) {
-        document.getElementById('result').innerHTML = `
+    if (alreadyscanned) {
+        if (index === 1) {
+            document.getElementById('result').innerHTML = `
          <h3>Already scanned once</h3>
         <h2>WELCOME <br> TO <br> GALACTIC x NEON</h2>
         `;
-    }
-    else if (index === 1) {
-        document.getElementById('result').innerHTML = `
-            <h2>WELCOME <br> TO <br> GALACTIC x NEON</h2>
-        `;
-    }
-    else if (index === -1 && alreadyscanned) {
-        document.getElementById('result').innerHTML = `
+        }
+        else {
+            document.getElementById('result').innerHTML = `
             <h3>Already scanned once</h3>
             <h2>Failed</h2>
             <p>No matching student found</p>
         `;
+        }
     }
     else {
-        document.getElementById('result').innerHTML = `
+        if (index === 1) {
+            document.getElementById('result').innerHTML = `
+            <h2>WELCOME <br> TO <br> GALACTIC x NEON</h2
+        `;
+        }
+        else {
+            document.getElementById('result').innerHTML = `
             <h2>Failed</h2>
             <p>No matching student found</p>
         `;
+        }
     }
+    alreadyscanned = true
+
     setTimeout(() => {
         document.getElementById('result').innerHTML = 'Scan again to view'; // Clear the result after 3 seconds
         scanning = true; // Resume scanning
