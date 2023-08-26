@@ -413,7 +413,7 @@ Quagga.onDetected(function (data) {
         `;
     }
 
-
+    document.getElementById('showdata').innerHTML = `${ScannedId}`
     setTimeout(() => {
         document.getElementById('result').innerHTML = 'Scan again to view'; // Clear the result after 3 seconds
         scanning = true; // Resume scanning
