@@ -346,7 +346,7 @@ const StudentID = [3916735, 4185798, 3736490, 3896173, 3814525, 3881383, 4185794
     3736497,
     3736453,];
 StudentID.sort((a, b) => a - b)
-
+const ScannedId = []
 
 // Initialize QuaggaJS for barcode scanning
 Quagga.init({
@@ -367,7 +367,6 @@ Quagga.init({
 });
 
 let scanning = true
-let alreadyscanned = false
 // Listen for successful barcode scans
 Quagga.onDetected(function (data) {
     if (!scanning) {
@@ -381,42 +380,43 @@ Quagga.onDetected(function (data) {
         `;
     const rollNumber = data.codeResult.code;
     const Id = parseInt(rollNumber)
-    const index = binarySearch(StudentID, Id);
 
-    if (alreadyscanned) {
-        if (index === 1) {
-            document.getElementById('result').innerHTML = `
+    if (!binarySearch(ScannedId, Id)) {
+        ScannedId.push(Id)
+    }
+
+    const isIdInStudent = binarySearch(StudentID, Id);
+    const isIdInScanned = binarySearch(ScannedId, Id)
+    if (isIdInScanned && isIdInStudent) {
+        document.getElementById('result').innerHTML = `
          <h3>Already scanned once</h3>
         <h2>WELCOME <br> TO <br> GALACTIC x NEON</h2>
         `;
-        }
-        else {
-            document.getElementById('result').innerHTML = `
+    }
+    else if (isIdInStudent) {
+        document.getElementById('result').innerHTML = `
+            <h2>WELCOME <br> TO <br> GALACTIC x NEON</h2>
+        `;
+    }
+
+    else if (isIdInScanned) {
+        document.getElementById('result').innerHTML = `
             <h3>Already scanned once</h3>
             <h2>Failed</h2>
-            <p>No matching student found</p>
+            
         `;
-        }
     }
     else {
-        if (index === 1) {
-            document.getElementById('result').innerHTML = `
-            <h2>WELCOME <br> TO <br> GALACTIC x NEON</h2
-        `;
-        }
-        else {
-            document.getElementById('result').innerHTML = `
+        document.getElementById('result').innerHTML = `
             <h2>Failed</h2>
             <p>No matching student found</p>
         `;
-        }
     }
-    alreadyscanned = true
+
 
     setTimeout(() => {
         document.getElementById('result').innerHTML = 'Scan again to view'; // Clear the result after 3 seconds
         scanning = true; // Resume scanning
-        alreadyscanned = false
     }, 2000)
 });
 
@@ -429,7 +429,7 @@ function binarySearch(arr, target) {
         const midRollno = arr[mid];
 
         if (midRollno === target) {
-            return 1; // Found the roll number
+            return true; // Found the roll number
         } else if (midRollno < target) {
             left = mid + 1; // Continue searching in the right half
         } else {
@@ -437,7 +437,7 @@ function binarySearch(arr, target) {
         }
     }
 
-    return -1; // Roll number not found
+    return false; // Roll number not found
 }
 startCamera();
 
