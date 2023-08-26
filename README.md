@@ -1,3 +1,3 @@
-# Qrscanner
+# scanner2
 
-https://jagss24.github.io/Qrscanner/
+https://jagss24.github.io/scanner2/
