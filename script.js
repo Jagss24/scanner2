@@ -58,12 +58,18 @@ Quagga.onDetected(function (data) {
     const Id = parseInt(rollNumber)
     const index = binarySearch(StudentID, Id);
 
-    if (index === 1 && alreadyscanned) {
+    if (index === 1) {
+        document.getElementById('result').innerHTML = `
+            <h2>WELCOME <br> TO <br> GALACTIC x NEON</h2>
+        `;
+    }
+    else if (index === 1 && alreadyscanned) {
         document.getElementById('result').innerHTML = `
         <h3>Already scanned once</h3>
             <h2>WELCOME <br> TO <br> GALACTIC x NEON</h2>
         `;
-    } else if (index === -1 && alreadyscanned) {
+    }
+    else if (index === -1 && alreadyscanned) {
         document.getElementById('result').innerHTML = `
             <h3>Already scanned once</h3>
             <h2>Failed</h2>
