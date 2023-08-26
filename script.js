@@ -380,11 +380,10 @@ Quagga.onDetected(function (data) {
         `;
     const rollNumber = data.codeResult.code;
     const Id = parseInt(rollNumber)
-
+    ScannedId.sort((a, b) => a - b)
     if (!binarySearch(ScannedId, Id)) {
         ScannedId.push(Id)
     }
-    ScannedId.sort((a, b) => a - b)
     const isIdInStudent = binarySearch(StudentID, Id);
     const isIdInScanned = binarySearch(ScannedId, Id)
     if (isIdInScanned && isIdInStudent) {
