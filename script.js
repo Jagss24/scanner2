@@ -82,7 +82,7 @@ Quagga.onDetected(function (data) {
         `;
     }
     setTimeout(() => {
-        document.getElementById('result').innerHTML = ''; // Clear the result after 3 seconds
+        document.getElementById('result').innerHTML = 'Scan again to view'; // Clear the result after 3 seconds
         scanning = true; // Resume scanning
         alreadyscanned = false
     }, 2000)
