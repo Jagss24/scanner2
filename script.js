@@ -43,11 +43,6 @@ let alreadyscanned = false
 // Listen for successful barcode scans
 Quagga.onDetected(function (data) {
 
-    if (alreadyscanned) {
-        document.getElementById('result').innerHTML = `
-        <h2> Already scanned once</h2>`
-        return
-    }
 
     alreadyscanned = true
     if (!scanning) {
