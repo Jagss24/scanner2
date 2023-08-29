@@ -1,3 +1,3 @@
-# scanner2
+# Barcode_Scanning
 
-https://jagss24.github.io/scanner2/
+https://jagss24.github.io/Barcode_scanning/
